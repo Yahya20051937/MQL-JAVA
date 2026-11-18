@@ -1,0 +1,26 @@
+package org.mql.java.reflection;
+
+import javax.swing.JFrame;
+
+import org.mql.java.reflection.ui.Form;
+
+public class UserInterface extends JFrame {
+	private static final long serialVersionUID = 1L;
+
+	public UserInterface() {
+		this.ex01();
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+	}
+	
+	void ex01() {
+		Form f = new Form();
+		f.addField("Id", 15);
+		f.addField("Designation", 30);
+		f.addField("Prix", 10);
+		setContentPane(f);
+	}
+	
+	public static void main(String[] args) {
+		new UserInterface();
+	}
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;size&apos; from expression &apos;l1.size()&apos;&#x0A;- Original project: &apos;p02-generics&apos;&#x0A;- Variable name: &apos;size&apos;&#x0A;- Destination method: &apos;org.mql.java.generics.Examples.ex07()&apos;&#x0A;- Variable expression: &apos;l1.size()&apos;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;size&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;org.mql.java.generics{Examples.java" name="size" replace="true" replaceAllInThisFile="false" selection="2901 9" stamp="1794843018622" varType="false" version="1.0"/>
+</session>

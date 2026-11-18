@@ -1,0 +1,5 @@
+package org.mql.java.reflection.dao;
+
+public class MySqlDataSource {
+
+}

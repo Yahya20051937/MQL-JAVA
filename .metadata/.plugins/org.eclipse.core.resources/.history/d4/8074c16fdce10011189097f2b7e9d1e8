@@ -1,0 +1,134 @@
+package org.mql.java.generics;
+
+import java.util.Iterator;
+
+public class LinkedList<T> implements List<T> {
+	private T value;
+	private LinkedList<T> next;
+	
+	public LinkedList() {
+		
+	}
+
+	public LinkedList(T value) {
+		super();
+		this.value = value;
+	}
+	
+	public void add(T element) {
+		if (value == null) {
+			this.value = element;
+		}
+		else if (this.next == null) {
+			this.next = new LinkedList<T>(element);
+		} else {
+			this.next.add(element);
+		}
+	}
+	
+	public T pop() {
+		T result = this.value;
+		if (this.next != null) {
+			this.value = this.next.value;
+			this.next = this.next.next;
+		} 
+		return result;
+	}
+
+	public void delete(int index){
+		if (index == 0) {
+			if (this.next == null) {
+				this.value = null;
+			}
+			else {
+				this.value = this.next.value;
+				this.next = this.next.next;
+			}
+		}
+		else {
+				if (this.next == null) {
+					return;
+				}
+				if (index == 1) {
+						this.next = this.next.next;
+				}
+				else {
+					this.next.delete(index - 1);
+				}
+			}
+	}
+	
+	public void addAt(int index, T element) {
+		if (index == 0) {
+			LinkedList<T> newElement = new LinkedList<T>(this.value);
+			newElement.next = this.next;
+			this.value = element;
+			this.next = newElement;
+		}
+		else if (index == 1) {
+			LinkedList<T> newElement = new LinkedList<T>(element);
+			var next = this.next;
+			this.next = newElement;
+			newElement.next = next;
+		}
+		else {
+			if (this.next == null)
+				return;
+			else this.next.addAt(index - 1, element);
+		}
+		
+	}
+	
+	public int size() {
+		if (value == null) return 0;
+		if (this.next == null) return 1;
+		else return 1 + next.size();
+	}
+	
+	public T get(int index) {
+		if (index < 0) return null;
+		if (index == 0) return value; // test d'arret
+		if (next == null) return null;
+		else return next.get(index - 1);
+	}
+
+	@Override
+	public T remove(int index) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void set(int index, T element) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Iterator<T> iterator() {
+		return new Iter(this);
+	}
+	
+	private class Iter implements Iterator<T> {
+		public Iter(LinkedList<T> pointer) {
+			super();
+			this.pointer = pointer;
+		}
+
+		private LinkedList<T> pointer;
+
+		@Override
+		public boolean hasNext() {
+			return (pointer != null);
+		}
+
+		@Override
+		public T next() {
+			System.out.println(">>> next()");
+			T element = pointer.value;
+			this.pointer = this.pointer.next;
+			return element;
+		}
+		
+	}
+}

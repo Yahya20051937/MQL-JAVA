@@ -1,0 +1,80 @@
+package org.mql;
+
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Vector;
+
+public class Examples {
+
+	public Examples() {
+		
+
+	}
+
+	void ex01() {
+		// starting from jdk 15 we have generics.
+		List<Integer> data = new Vector<>(); // thread safe
+		//List<Integer> data = new ArrayList<>(); // nopt thread safe
+		
+		DataGenerator g1 = new DataGenerator(data, 50);
+		DataGenerator g2 = new DataGenerator(data, 50);
+
+		g1.start();
+		g2.start();
+
+		try {
+			g2.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
+		System.out.println("data.size() " + data.size());
+	}
+
+
+	void ex02(){
+		ListsTests tests = new ListsTests(100000);
+		TimeProcessing.process(tests);
+	}
+	
+	void ex03(){
+		StringTests tests = new StringTests(100000);
+		TimeProcessing.process(tests);
+	}
+	
+	void ex04(){
+		Buffer buffer = new Buffer();
+		Thread threads[] = {
+				new Reader("ro", buffer),
+				new Reader("r1", buffer),
+				new Reader("r2", buffer)
+		};
+		
+		for (Thread thread : threads) {
+			thread.start();
+		}
+	}
+	
+	void ex05() {
+		LinkedList<String> list = new LinkedList<String>();
+		Iterator<String> it =  list.iterator();
+		System.out.println(it.getClass().getName());
+		while (it.hasNext()) {
+			String e = it.next();
+			System.out.println(e);
+		}
+		
+		for (String string : list) {
+			System.out.println(string);
+		}
+	}
+
+	public static void main(String[] args) {
+		new Examples().ex05();
+
+	}
+
+}

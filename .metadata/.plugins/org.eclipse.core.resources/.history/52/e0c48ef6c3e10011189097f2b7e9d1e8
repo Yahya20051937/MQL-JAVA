@@ -1,0 +1,110 @@
+package org.mql.java.generics;
+
+
+
+import java.util.Vector;
+
+import org.mql.java.generics.models.Pixel;
+import org.mql.java.generics.models.Point;
+
+public class Examples {
+	
+	
+	public Examples() {
+		this.ex05();
+	}
+	
+	void ex01() {
+		// works because pixel is a point
+		Point p1 = new Pixel();
+		
+		Vector<Point> v1 = new Vector<>();
+		v1.add(new Point());
+		v1.add(new Pixel());
+		v1.add(p1);
+		
+		print(v1);
+		
+		Vector<Pixel> v2 = new Vector<>();
+		// print(v2); will not work.
+		printWildCard(v1);
+		printWildCard(v2);
+		
+		Vector<?> v3 = new Vector<Point>();
+		// v3.add(new Point());
+	}
+	
+	
+	void ex02() {
+		//- Cas 1: type générique a bonne supérieure, (Upper bounded generic type)
+		// Se présente dans 2 situation deifferentes, a la définition du type et a la declaration
+		
+		// Data is a local class.
+		// 1.1 a la definition
+		class Data<T extends Point>{
+			private T info;
+			
+		}
+		
+		Data<Point> points = new Data<>();
+		Data<Pixel> pixels = new Data<>();
+		
+		// 1.2 a la declaration
+		Vector<? extends Point> v1 = new Vector<>();
+		// v1.add(new Point()); ne marche pas,
+		
+	}
+	
+	void ex03() {
+		//- Cas 2 : lower bounded generic type
+		// - It has only a single context of usage, at declaring, doesn’t exist at definition.
+		
+		Vector<? super Pixel> v1 = new Vector<Pixel>();
+		Vector<? super Pixel> v2 = new Vector<Point>();
+		Vector<? super Pixel> v3 = new Vector<Object>();
+		//Vector<? super Pixel> v1 = new Vector<String>();
+		
+		v1.add(new Pixel()); // works !!!1. because in the edge case, we will have a vector of pixel
+		// v2.add(new Point()); doesn't work because at compile time, we don't know that it's a Vector of points
+		// v3.add(new Object()); same thing of Object.
+	}
+	
+	void ex04() {
+		LinkedList<String> l1 = new LinkedList<>();
+		l1.add("Java");
+		l1.add("JDK");
+		l1.add("JRE");
+		
+		System.out.println(l1.size());
+		System.out.println(l1.get(0));
+		System.out.println(l1.get(1));
+		System.out.println(l1.get(2));
+		
+	}
+	
+	void ex05() {
+		LinkedList<String> l1 = new LinkedList<>();
+		l1.add("Java");
+		l1.add("JDK");
+		l1.add("JRE");
+		
+		l1.delete(0);
+		
+		System.out.println(l1.get(0));
+		System.out.println(l1.get(1));
+		System.out.println(l1.get(2));
+		
+	}
+	
+	void print(Vector<Point> v) {
+		System.out.println(v);
+	}
+	
+	void printWildCard(Vector<?> v) {
+		System.out.println(v);
+	}
+	
+	public static void main(String[] args) {
+		new Examples();
+	}
+}

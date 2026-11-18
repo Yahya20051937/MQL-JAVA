@@ -1,0 +1,21 @@
+package org.mql.java.reflection;
+
+import org.mql.java.reflection.ui.Form;
+
+public class UserInterface {
+	public UserInterface() {
+		this.ex01();
+	}
+	
+	void ex01() {
+		Form f = new Form();
+		f.addField("Id", 15);
+		f.addField("Designation", 30);
+		f.addField("Prix", 10);
+		
+	}
+	
+	public static void main(String[] args) {
+		new UserInterface();
+	}
+}

@@ -1,0 +1,11 @@
+package org.mql.java.reflection.ui;
+
+import java.io.Serializable;
+
+import javax.swing.JPanel;
+
+public class Form extends JPanel implements Serializablea{
+
+	
+	
+}

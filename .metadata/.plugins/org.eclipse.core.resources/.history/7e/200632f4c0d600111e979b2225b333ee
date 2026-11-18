@@ -1,0 +1,43 @@
+package org.mql;
+
+import java.util.List;
+import java.util.Vector;
+
+public class Examples {
+
+	public Examples() {
+		
+
+	}
+
+	void ex01() {
+		// starting from jdk 15 we have generics.
+		List<Integer> data = new Vector<>(); // thread safe
+		//List<Integer> data = new ArrayList<>(); // nopt thread safe
+
+		DataGenerator g1 = new DataGenerator(data, 50);
+		DataGenerator g2 = new DataGenerator(data, 50);
+
+		g1.start();
+		g2.start();
+
+		try {
+			g2.join();
+		} catch (Exception e) {}
+		
+
+		System.out.println("data.size() " + data.size());
+	}
+
+
+	void ex02(){
+		ListsTests tests = new ListsTests(1000000);
+		TimeProcessing.process(tests);
+	}
+
+	public static void main(String[] args) {
+		new Examples().ex02();
+
+	}
+
+}

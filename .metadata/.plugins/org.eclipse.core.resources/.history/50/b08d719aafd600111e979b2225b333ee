@@ -1,0 +1,5 @@
+package org.mql;
+
+public class DataGenerator extends Thread {
+
+}

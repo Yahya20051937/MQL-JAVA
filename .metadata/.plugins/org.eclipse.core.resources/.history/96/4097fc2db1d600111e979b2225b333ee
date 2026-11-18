@@ -1,0 +1,35 @@
+package org.mql;
+
+import java.util.List;
+import java.util.Vector;
+
+public class Examples {
+
+	public Examples() {
+		
+
+	}
+
+	void ex01() {
+		// starting from jdk 25.
+		List<Integer> data = new Vector<>();
+
+		DataGenerator g1 = new DataGenerator(data, 50);
+		DataGenerator g2 = new DataGenerator(data, 50);
+
+		g1.start();
+		g2.start();
+
+		try {
+		} catch (Exception e) {}
+		
+
+		System.out.println("data.size() " + data.size());
+	}
+
+	public static void main(String[] args) {
+		new Examples().ex01();
+
+	}
+
+}

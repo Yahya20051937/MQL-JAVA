@@ -1,0 +1,87 @@
+package org.mql.java.reflection;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.Properties;
+
+import org.mql.java.reflection.models.Product;
+import org.mql.java.reflection.models.Technoogy;
+
+public class Examples {
+	public Examples() {
+		ex03();
+	}
+	
+	void ex01() {
+		// Source = Object.
+		Technoogy tech = new Technoogy(101, "JAVA", 1995, "James Gosling");
+		scan(tech, "Technology java");
+		
+		Product p1 = new Product(245, "Clavier", 400);
+		scan(p1, "");
+		
+		System.out.println(">>> Techno =  " + tech);
+		System.out.println(">>> Prod =  " + p1);
+	}
+	
+	void scan(Object obj, String description) {
+		Class<?> cls = obj.getClass();
+		System.out.println(">> Nom completement qualifie: " + cls.getName());
+		System.out.println(">> Nom simple " + cls.getSimpleName());
+		Field[] fields = cls.getDeclaredFields();
+		for (Field field : fields) {
+			try {
+				field.setAccessible(true);
+				System.out.println("Field Name: " + field.getName() + " = " + field.get(obj));
+				field.setAccessible(false);
+			} catch (Exception e) {
+				System.out.println("Erreur : " + e.getMessage());
+			}
+		}
+		
+		try {
+			Field field = cls.getDeclaredField("description");
+			if (field != null) {
+				field.setAccessible(true);
+				field.set(obj, description);
+				field.setAccessible(false);
+			}
+		} catch (Exception e) {
+			System.out.println("Erreur : " + e.getMessage());
+		}
+		
+	}
+	
+	void ex02() {
+		// Source: Class
+		Class<Product> cls = Product.class;
+		Method[] methods = cls.getDeclaredMethods();
+		
+		for (Method method : methods) {
+			System.out.println(" - " +  method.getName() + "()");
+		}
+		
+	}
+	
+	void ex03() {
+		// Source : Name of a class
+		Properties props = new Properties();
+		try {
+			props.load(new FileReader("resources/application.properties"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("Erreur : " + e.getMessage());
+		} 
+		
+		String name = props.getProperty("data-source");
+		System.out.println(name);
+		
+	}
+
+	public static void main(String[] args) {
+		new Examples();
+	}
+}

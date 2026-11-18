@@ -1,0 +1,56 @@
+package org.mql.java.reflection;
+
+import java.lang.reflect.Field;
+
+import org.mql.java.reflection.models.Product;
+import org.mql.java.reflection.models.Technoogy;
+
+public class Examples {
+	public Examples() {
+		ex01();
+	}
+	
+	void ex01() {
+		// Source = Object.
+		Technoogy tech = new Technoogy(101, "JAVA", 1995, "James Gosling");
+		scan(tech, "Technology java");
+		
+		Product p1 = new Product(245, "Clavier", 400);
+		scan(p1, "");
+		
+		System.out.println(">>> Techno =  " + tech);
+		System.out.println(">>> Prod =  " + p1);
+	}
+	
+	void scan(Object obj, String description) {
+		Class<?> cls = obj.getClass();
+		System.out.println(">> Nom completement qualifie: " + cls.getName());
+		System.out.println(">> Nom simple " + cls.getSimpleName());
+		Field[] fields = cls.getDeclaredFields();
+		for (Field field : fields) {
+			try {
+				field.setAccessible(true);
+				System.out.println("Field Name: " + field.getName() + " = " + field.get(obj));
+				field.setAccessible(false);
+			} catch (Exception e) {
+				System.out.println("Erreur : " + e.getMessage());
+			}
+		}
+		
+		try {
+			Field field = cls.getDeclaredField("description");
+			if (field != null) {
+				field.setAccessible(true);
+				field.set(obj, description);
+				field.setAccessible(false);
+			}
+		} catch (Exception e) {
+			System.out.println("Erreur : " + e.getMessage());
+		}
+		
+	}
+
+	public static void main(String[] args) {
+		new Examples();
+	}
+}

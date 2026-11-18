@@ -1,0 +1,28 @@
+package org.mql;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Examples {
+
+	public Examples() {
+		System.out.print(false);
+
+	}
+
+	void ex01() {
+		// starting from jdk 25.
+		List<Integer> l1 = new ArrayList<>();
+
+		DataGenerator g1 = new DataGenerator(l1, 50);
+		g1.start();
+
+		System.out.println("data.size() " + l1.size());
+	}
+
+	public static void main(String[] args) {
+		new Examples();
+
+	}
+
+}

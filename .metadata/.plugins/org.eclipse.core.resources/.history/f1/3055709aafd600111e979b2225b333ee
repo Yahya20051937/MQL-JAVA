@@ -1,0 +1,14 @@
+package org.mql;
+
+public class Examples {
+	
+	public Examples() {
+		System.out.print(false);
+	}
+	
+	public static void main(String[] args) {
+		new Examples();
+
+	}
+
+}
